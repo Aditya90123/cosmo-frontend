@@ -8,23 +8,27 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus("Sending...");
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-        }),
-      });
+      const res = await fetch(
+        "https://cosmo-backend-wyp4.onrender.com/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+          }),
+        }
+      );
 
       const data = await res.json();
 
-      if (data.status === "success") {
+      if (data.status === "saved" || data.status === "ok") {
         setStatus("✅ Message sent successfully");
         setName("");
         setEmail("");
@@ -34,7 +38,7 @@ export default function Contact() {
       }
     } catch (err) {
       console.error(err);
-      setStatus("❌ Server error");
+      setStatus("❌ Server error. Try again later.");
     }
   };
 
@@ -54,7 +58,11 @@ export default function Contact() {
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
           required
-          style={{ padding: 14, borderRadius: 8, border: "1px solid #d1d5db" }}
+          style={{
+            padding: 14,
+            borderRadius: 8,
+            border: "1px solid #d1d5db",
+          }}
         />
 
         <input
@@ -63,7 +71,11 @@ export default function Contact() {
           placeholder="Email"
           type="email"
           required
-          style={{ padding: 14, borderRadius: 8, border: "1px solid #d1d5db" }}
+          style={{
+            padding: 14,
+            borderRadius: 8,
+            border: "1px solid #d1d5db",
+          }}
         />
 
         <textarea
@@ -72,7 +84,11 @@ export default function Contact() {
           placeholder="Message"
           rows={5}
           required
-          style={{ padding: 14, borderRadius: 8, border: "1px solid #d1d5db" }}
+          style={{
+            padding: 14,
+            borderRadius: 8,
+            border: "1px solid #d1d5db",
+          }}
         />
 
         <button
