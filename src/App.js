@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Applications from "./pages/Applications";
+import Contact from "./pages/Contact";
+import ProductDetail from "./pages/ProductDetail";
+import PageTransition from "./components/PageTransition";
+import VisionApplications from "./pages/VisionApplications";
 
-function App() {
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+
+      <Routes>
+        <Route path="/applications/vision" element={<VisionApplications />} />
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/applications" element={<PageTransition><Applications /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/products/:id" element={<PageTransition><ProductDetail /></PageTransition>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
